@@ -5,12 +5,6 @@
     "title": "Crawl4AI API",
     "description": "AI-powered web scraping and crawling API"
   },
-  "servers": [
-    {
-      "url": "http://129.212.146.238",
-      "description": "Crawl4AI Backend"
-    }
-  ],
   "paths": {
     "/crawl/job": {
       "post": {
@@ -20,11 +14,8 @@
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
-            "export": "urlForwardHandler",
-            "module": "$import(@zuplo/runtime)",
-            "options": {
-              "baseUrl": "http://129.212.146.238"
-            }
+            "export": "default",
+            "module": "$import(./modules/backend-proxy)"
           },
           "policies": {
             "inbound": ["api-key-auth"]
@@ -71,11 +62,8 @@
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
-            "export": "urlForwardHandler",
-            "module": "$import(@zuplo/runtime)",
-            "options": {
-              "baseUrl": "http://129.212.146.238"
-            }
+            "export": "default",
+            "module": "$import(./modules/backend-proxy)"
           },
           "policies": {
             "inbound": ["api-key-auth"]
