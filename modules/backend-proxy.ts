@@ -1,7 +1,7 @@
 import { ZuploContext, ZuploRequest } from "@zuplo/runtime";
 
 export default async function (request: ZuploRequest, context: ZuploContext) {
-  const backendUrl = "http://129.212.146.238";
+  const backendUrl = "http://api2.crawl4ai.com";
 
   // Construct the full URL
   const url = new URL(request.url);
