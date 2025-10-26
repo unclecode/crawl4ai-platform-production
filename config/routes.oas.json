@@ -2,7 +2,132 @@
   "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
-    "title": "My Zuplo API"
+    "title": "Crawl4AI API",
+    "description": "AI-powered web scraping and crawling API"
   },
-  "paths": {}
+  "servers": [
+    {
+      "url": "http://129.212.146.238",
+      "description": "Crawl4AI Backend"
+    }
+  ],
+  "paths": {
+    "/crawl/job": {
+      "post": {
+        "summary": "Submit Crawl Job",
+        "description": "Submit a new web crawling job",
+        "operationId": "submitCrawlJob",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlForwardHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "baseUrl": "http://129.212.146.238"
+            }
+          },
+          "policies": {
+            "inbound": [
+              {
+                "name": "api-key-auth",
+                "policyType": "api-key-inbound",
+                "handler": {
+                  "export": "ApiKeyInboundPolicy",
+                  "module": "$import(@zuplo/runtime)",
+                  "options": {
+                    "allowUnauthenticatedRequests": false
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "urls": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of URLs to crawl"
+                  }
+                },
+                "required": ["urls"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Job submitted successfully"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          }
+        }
+      }
+    },
+    "/crawl/job/{jobId}": {
+      "get": {
+        "summary": "Get Crawl Job Status",
+        "description": "Get the status and results of a crawl job",
+        "operationId": "getCrawlJob",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlForwardHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "baseUrl": "http://129.212.146.238"
+            }
+          },
+          "policies": {
+            "inbound": [
+              {
+                "name": "api-key-auth",
+                "policyType": "api-key-inbound",
+                "handler": {
+                  "export": "ApiKeyInboundPolicy",
+                  "module": "$import(@zuplo/runtime)",
+                  "options": {
+                    "allowUnauthenticatedRequests": false
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Job ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job status and results"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid API key"
+          },
+          "404": {
+            "description": "Job not found"
+          }
+        }
+      }
+    }
+  }
 }
