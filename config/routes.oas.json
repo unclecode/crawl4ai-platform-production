@@ -18,7 +18,8 @@
             "module": "$import(./modules/backend-proxy)"
           },
           "policies": {
-            "inbound": ["api-key-auth", "rate-limit"]
+            "inbound": ["api-key-auth", "rate-limit"],
+            "outbound": ["add-rate-limit-headers"]
           }
         },
         "requestBody": {
@@ -66,7 +67,8 @@
             "module": "$import(./modules/backend-proxy)"
           },
           "policies": {
-            "inbound": ["api-key-auth", "rate-limit"]
+            "inbound": ["api-key-auth", "rate-limit"],
+            "outbound": ["add-rate-limit-headers"]
           }
         },
         "parameters": [

@@ -28,6 +28,14 @@
           "headerMode": "retry-after"
         }
       }
+    },
+    {
+      "name": "add-rate-limit-headers",
+      "policyType": "custom-code-outbound",
+      "handler": {
+        "export": "default",
+        "module": "$import(./modules/rate-limit-headers)"
+      }
     }
   ]
 }
