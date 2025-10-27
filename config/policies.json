@@ -10,6 +10,21 @@
           "allowUnauthenticatedRequests": false
         }
       }
+    },
+    {
+      "name": "rate-limit",
+      "policyType": "rate-limit-inbound",
+      "handler": {
+        "export": "RateLimitInboundPolicy",
+        "module": "$import(@zuplo/runtime)",
+        "options": {
+          "rateLimitBy": "function",
+          "identifier": {
+            "module": "$import(./modules/rate-limiting)",
+            "export": "rateLimitByTier"
+          }
+        }
+      }
     }
   ]
 }
