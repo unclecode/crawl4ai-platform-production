@@ -1,23 +1,95 @@
 import type { ZudokuConfig } from "zudoku";
 
 /**
- * Developer Portal Configuration
+ * Crawl4AI Developer Portal Configuration
+ *
+ * Complete terminal aesthetic branding with:
+ * - Dank Mono font throughout
+ * - Cyan (#50ffff) primary color
+ * - Dark theme (#070708 background)
+ * - Pink (#f380f5) accents
+ *
  * For more information, see:
  * https://zuplo.com/docs/dev-portal/zudoku/configuration/overview
  */
 const config: ZudokuConfig = {
   site: {
-    title: "My Developer Portal",
+    title: "Crawl4AI API",
     logo: {
       src: {
-        light: "https://cdn.zuplo.com/assets/my-dev-portal-light.svg",
-        dark: "https://cdn.zuplo.com/assets/my-dev-portal-dark.svg",
+        light: "/logo.png",
+        dark: "/logo.png",
       },
+      width: 48,
+      height: 48,
     },
   },
   metadata: {
-    title: "Developer Portal",
-    description: "Developer Portal",
+    title: "Crawl4AI API Documentation",
+    description: "AI-Powered Web Crawling & Scraping API - Extract clean data from any website with LLM integration. Fast, reliable, and developer-friendly.",
+    keywords: "web scraping, api, crawling, ai extraction, llm, developer tools, automation, data extraction",
+    generator: "Zudoku",
+  },
+  theme: {
+    // Dark theme colors (terminal aesthetic)
+    dark: {
+      background: "#070708",
+      foreground: "#e8e9ed",
+      card: "#1a1a1a",
+      cardForeground: "#e8e9ed",
+      popover: "#1a1a1a",
+      popoverForeground: "#e8e9ed",
+      primary: "#50ffff",
+      primaryForeground: "#070708",
+      secondary: "#3f3f44",
+      secondaryForeground: "#e8e9ed",
+      muted: "#3f3f44",
+      mutedForeground: "#a3abba",
+      accent: "#f380f5",
+      accentForeground: "#070708",
+      destructive: "#ff3c74",
+      destructiveForeground: "#e8e9ed",
+      border: "#3f3f44",
+      input: "#3f3f44",
+      ring: "#50ffff",
+      radius: "8px",
+    },
+    // Light theme (keep minimal, portal is dark-first)
+    light: {
+      background: "#ffffff",
+      foreground: "#070708",
+      card: "#f5f5f5",
+      cardForeground: "#070708",
+      popover: "#ffffff",
+      popoverForeground: "#070708",
+      primary: "#09b5a5",
+      primaryForeground: "#ffffff",
+      secondary: "#e8e9ed",
+      secondaryForeground: "#070708",
+      muted: "#f5f5f5",
+      mutedForeground: "#8b857a",
+      accent: "#f380f5",
+      accentForeground: "#ffffff",
+      destructive: "#ff3c74",
+      destructiveForeground: "#ffffff",
+      border: "#d5cec0",
+      input: "#e8e9ed",
+      ring: "#09b5a5",
+      radius: "8px",
+    },
+    // Fonts - Dank Mono from docs.crawl4ai.com
+    fonts: {
+      sans: {
+        url: "https://docs.crawl4ai.com/assets/dmvendor.css",
+        fontFamily: "'Dank Mono', 'dm', Monaco, 'Courier New', monospace",
+      },
+      mono: {
+        url: "https://docs.crawl4ai.com/assets/dmvendor.css",
+        fontFamily: "'Dank Mono', 'dm', Monaco, Menlo, Consolas, monospace",
+      },
+    },
+    // Custom CSS for additional styling
+    customCss: "/custom.css",
   },
   navigation: [
     {
@@ -35,25 +107,46 @@ const config: ZudokuConfig = {
             },
             {
               type: "doc",
-              file: "markdown",
+              file: "quickstart",
+            },
+            {
+              type: "doc",
+              file: "authentication",
             },
           ],
         },
         {
           type: "category",
-          label: "Useful Links",
+          label: "API Reference",
+          icon: "code",
+          items: [
+            {
+              type: "link",
+              label: "API Endpoints",
+              to: "/api",
+            },
+          ],
+        },
+        {
+          type: "category",
+          label: "Resources",
           collapsible: false,
           icon: "link",
           items: [
             {
               type: "link",
-              label: "Zuplo Docs",
-              to: "https://zuplo.com/docs/dev-portal/introduction",
+              label: "Main Documentation",
+              to: "https://docs.crawl4ai.com",
             },
             {
               type: "link",
-              label: "Developer Portal Docs",
-              to: "https://zuplo.com/docs/dev-portal/introduction",
+              label: "GitHub",
+              to: "https://github.com/unclecode/crawl4ai",
+            },
+            {
+              type: "link",
+              label: "Discord Community",
+              to: "https://discord.gg/crawl4ai",
             },
           ],
         },
@@ -65,7 +158,7 @@ const config: ZudokuConfig = {
       label: "API Reference",
     },
   ],
-  redirects: [{ from: "/", to: "/api" }],
+  redirects: [{ from: "/", to: "/introduction" }],
   apis: [
     {
       type: "file",
@@ -74,10 +167,8 @@ const config: ZudokuConfig = {
     },
   ],
   authentication: {
-    // IMPORTANT: This is a demo Auth0 configuration.
-    // In a real application, you should replace these values with your own
-    // identity provider's configuration.
-    // This configuration WILL NOT WORK with custom domains.
+    // Using Zuplo's built-in API key management
+    // Users sign up through the portal and get API keys automatically
     // For more information, see:
     // https://zuplo.com/docs/dev-portal/zudoku/configuration/authentication
     type: "auth0",

@@ -1,0 +1,336 @@
+/**
+ * Crawl4AI Developer Portal - Custom Styles
+ * Terminal aesthetic with Dank Mono font and cyan/pink theme
+ */
+
+/* Import Dank Mono font from docs.crawl4ai.com */
+@import url('https://docs.crawl4ai.com/assets/dmvendor.css');
+
+/* Root CSS Variables - Crawl4AI Brand Colors */
+:root {
+  /* Primary Colors */
+  --crawl4ai-cyan: #50ffff;
+  --crawl4ai-pink: #f380f5;
+  --crawl4ai-teal: #09b5a5;
+
+  /* Background Colors */
+  --crawl4ai-dark: #070708;
+  --crawl4ai-bg-secondary: #1a1a1a;
+  --crawl4ai-bg-tertiary: #3f3f44;
+  --crawl4ai-block-bg: #202020;
+
+  /* Text Colors */
+  --crawl4ai-text-primary: #e8e9ed;
+  --crawl4ai-text-secondary: #d5cec0;
+  --crawl4ai-text-tertiary: #a3abba;
+  --crawl4ai-text-dimmed: #8b857a;
+
+  /* Semantic Colors */
+  --crawl4ai-success: #50ff50;
+  --crawl4ai-error: #ff3c74;
+  --crawl4ai-warning: #f59e0b;
+  --crawl4ai-info: #4a9eff;
+
+  /* Border & Effects */
+  --crawl4ai-border: #3f3f44;
+  --crawl4ai-shadow-cyan: rgba(80, 255, 255, 0.1);
+  --crawl4ai-shadow-pink: rgba(243, 128, 245, 0.1);
+}
+
+/* Global Typography - Dank Mono for everything */
+body,
+html,
+* {
+  font-family: 'Dank Mono', 'dm', Monaco, 'Courier New', monospace !important;
+}
+
+/* Body Background */
+body {
+  background-color: var(--crawl4ai-dark) !important;
+  color: var(--crawl4ai-text-primary) !important;
+}
+
+/* Headers with subtle styling */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--crawl4ai-text-primary) !important;
+  font-weight: 700 !important;
+}
+
+h1 {
+  font-size: 2.5rem !important;
+  line-height: 1.2 !important;
+}
+
+h2 {
+  font-size: 1.75rem !important;
+  line-height: 1.3 !important;
+}
+
+h3 {
+  font-size: 1.3rem !important;
+  line-height: 1.4 !important;
+}
+
+/* Links - Cyan with teal hover */
+a {
+  color: var(--crawl4ai-cyan) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+
+a:hover {
+  color: var(--crawl4ai-teal) !important;
+  text-decoration: underline !important;
+}
+
+/* Buttons - Primary Cyan Style */
+button,
+.btn,
+[class*="button"] {
+  background-color: var(--crawl4ai-cyan) !important;
+  color: var(--crawl4ai-dark) !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+button:hover,
+.btn:hover,
+[class*="button"]:hover {
+  background-color: var(--crawl4ai-teal) !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 16px var(--crawl4ai-shadow-cyan) !important;
+}
+
+/* Code Blocks - Terminal Style */
+code {
+  font-family: 'Dank Mono', monospace !important;
+  background-color: var(--crawl4ai-bg-secondary) !important;
+  color: var(--crawl4ai-text-secondary) !important;
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+}
+
+pre {
+  background-color: var(--crawl4ai-dark) !important;
+  border: 1px solid var(--crawl4ai-border) !important;
+  border-left: 3px solid var(--crawl4ai-cyan) !important;
+  border-radius: 8px !important;
+  padding: 1.5rem !important;
+  overflow-x: auto !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+
+pre code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Cards - Elevated surfaces with hover effect */
+[class*="card"],
+.card {
+  background-color: var(--crawl4ai-bg-tertiary) !important;
+  border: 1px solid var(--crawl4ai-border) !important;
+  border-radius: 8px !important;
+  padding: 1.5rem !important;
+  transition: all 0.3s ease !important;
+}
+
+[class*="card"]:hover,
+.card:hover {
+  border-color: var(--crawl4ai-cyan) !important;
+  box-shadow: 0 8px 16px var(--crawl4ai-shadow-cyan) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Navigation - Sidebar styling */
+nav,
+[class*="sidebar"],
+[class*="navigation"] {
+  background-color: var(--crawl4ai-bg-secondary) !important;
+  border-right: 1px solid var(--crawl4ai-border) !important;
+}
+
+/* Active navigation items */
+[class*="active"],
+.active {
+  border-left: 3px solid var(--crawl4ai-cyan) !important;
+  color: var(--crawl4ai-cyan) !important;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  background-color: var(--crawl4ai-bg-secondary) !important;
+}
+
+th {
+  background-color: var(--crawl4ai-bg-tertiary) !important;
+  color: var(--crawl4ai-text-primary) !important;
+  font-weight: 700 !important;
+  padding: 0.75rem !important;
+  text-align: left !important;
+  border-bottom: 2px solid var(--crawl4ai-cyan) !important;
+}
+
+td {
+  padding: 0.75rem !important;
+  border-bottom: 1px solid var(--crawl4ai-border) !important;
+  color: var(--crawl4ai-text-secondary) !important;
+}
+
+tr:hover {
+  background-color: var(--crawl4ai-block-bg) !important;
+}
+
+/* Badges */
+[class*="badge"],
+.badge {
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 20px !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+}
+
+/* Input fields */
+input,
+textarea,
+select {
+  background-color: var(--crawl4ai-bg-secondary) !important;
+  border: 1px solid var(--crawl4ai-border) !important;
+  color: var(--crawl4ai-text-primary) !important;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: 6px !important;
+  transition: border-color 0.2s ease !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: var(--crawl4ai-cyan) !important;
+  box-shadow: 0 0 0 2px var(--crawl4ai-shadow-cyan) !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--crawl4ai-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--crawl4ai-bg-tertiary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--crawl4ai-teal);
+}
+
+/* Selection highlight */
+::selection {
+  background-color: var(--crawl4ai-cyan);
+  color: var(--crawl4ai-dark);
+}
+
+::-moz-selection {
+  background-color: var(--crawl4ai-cyan);
+  color: var(--crawl4ai-dark);
+}
+
+/* Focus states - Accessibility */
+*:focus {
+  outline: 2px solid var(--crawl4ai-cyan) !important;
+  outline-offset: 2px !important;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 3px solid var(--crawl4ai-cyan) !important;
+  padding-left: 1rem !important;
+  margin: 1rem 0 !important;
+  background-color: var(--crawl4ai-bg-secondary) !important;
+  padding: 1rem !important;
+  border-radius: 4px !important;
+  color: var(--crawl4ai-text-secondary) !important;
+}
+
+/* Hero sections */
+[class*="hero"] {
+  background: linear-gradient(135deg, var(--crawl4ai-dark) 0%, var(--crawl4ai-bg-secondary) 100%) !important;
+  border-bottom: 1px solid var(--crawl4ai-border) !important;
+}
+
+/* API Response examples */
+[class*="response"],
+[class*="example"] {
+  background-color: var(--crawl4ai-dark) !important;
+  border: 1px solid var(--crawl4ai-border) !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+}
+
+/* Status indicators */
+[class*="success"],
+.success {
+  color: var(--crawl4ai-success) !important;
+}
+
+[class*="error"],
+.error {
+  color: var(--crawl4ai-error) !important;
+}
+
+[class*="warning"],
+.warning {
+  color: var(--crawl4ai-warning) !important;
+}
+
+[class*="info"],
+.info {
+  color: var(--crawl4ai-info) !important;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.2rem !important;
+  }
+
+  button,
+  .btn {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+}

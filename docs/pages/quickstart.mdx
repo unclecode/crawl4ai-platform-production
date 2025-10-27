@@ -1,0 +1,225 @@
+# Quick Start
+
+Get started with the Crawl4AI API in minutes. This guide will walk you through making your first API call.
+
+## Prerequisites
+
+- Sign up for a Crawl4AI account at [portal.crawl4ai.com](https://portal.crawl4ai.com)
+- Get your API key from the dashboard
+
+## Your First API Call
+
+### Submit a Crawl Job
+
+```bash
+curl -X POST https://api.crawl4ai.com/crawl/job \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "urls": ["https://example.com"],
+    "extraction_config": {
+      "type": "markdown"
+    }
+  }'
+```
+
+**Response:**
+
+```json
+{
+  "job_id": "job_abc123",
+  "status": "pending",
+  "created_at": "2025-10-27T12:00:00Z"
+}
+```
+
+### Check Job Status
+
+```bash
+curl https://api.crawl4ai.com/crawl/job/job_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Response:**
+
+```json
+{
+  "job_id": "job_abc123",
+  "status": "completed",
+  "result": {
+    "url": "https://example.com",
+    "title": "Example Domain",
+    "markdown": "# Example Domain\n\nThis domain is for use in illustrative examples...",
+    "extracted_at": "2025-10-27T12:00:15Z"
+  }
+}
+```
+
+## SDK Examples
+
+### Python
+
+```python
+import requests
+
+API_KEY = "your_api_key_here"
+BASE_URL = "https://api.crawl4ai.com"
+
+# Submit crawl job
+response = requests.post(
+    f"{BASE_URL}/crawl/job",
+    headers={"Authorization": f"Bearer {API_KEY}"},
+    json={
+        "urls": ["https://example.com"],
+        "extraction_config": {"type": "markdown"}
+    }
+)
+
+job_id = response.json()["job_id"]
+print(f"Job submitted: {job_id}")
+
+# Check status
+status_response = requests.get(
+    f"{BASE_URL}/crawl/job/{job_id}",
+    headers={"Authorization": f"Bearer {API_KEY}"}
+)
+
+print(status_response.json())
+```
+
+### JavaScript/Node.js
+
+```javascript
+const API_KEY = "your_api_key_here";
+const BASE_URL = "https://api.crawl4ai.com";
+
+// Submit crawl job
+const response = await fetch(`${BASE_URL}/crawl/job`, {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${API_KEY}`,
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    urls: ["https://example.com"],
+    extraction_config: { type: "markdown" }
+  })
+});
+
+const { job_id } = await response.json();
+console.log(`Job submitted: ${job_id}`);
+
+// Check status
+const statusResponse = await fetch(
+  `${BASE_URL}/crawl/job/${job_id}`,
+  {
+    headers: { "Authorization": `Bearer ${API_KEY}` }
+  }
+);
+
+const result = await statusResponse.json();
+console.log(result);
+```
+
+## Advanced Options
+
+### AI-Powered Extraction
+
+Use LLM extraction for structured data:
+
+```json
+{
+  "urls": ["https://news.example.com"],
+  "extraction_config": {
+    "type": "llm",
+    "schema": {
+      "title": "string",
+      "author": "string",
+      "published_date": "string",
+      "summary": "string",
+      "tags": "array"
+    }
+  }
+}
+```
+
+### Session Management
+
+Maintain cookies and localStorage for authenticated pages:
+
+```json
+{
+  "urls": ["https://app.example.com/dashboard"],
+  "session_config": {
+    "cookies": {
+      "session_token": "abc123"
+    },
+    "user_agent": "Custom User Agent"
+  }
+}
+```
+
+### Batch Processing
+
+Submit multiple URLs in one request:
+
+```json
+{
+  "urls": [
+    "https://example.com/page1",
+    "https://example.com/page2",
+    "https://example.com/page3"
+  ],
+  "extraction_config": {
+    "type": "markdown"
+  }
+}
+```
+
+## Rate Limits
+
+Your rate limit depends on your subscription tier:
+
+- **Free**: 100 requests/hour
+- **Crawler ($39/mo)**: 280 requests/hour
+- **Spider ($149/mo)**: 1,388 requests/hour
+- **Enterprise ($499/mo)**: 13,888 requests/hour
+
+Check your remaining quota in response headers:
+
+```
+RateLimit-Limit: 280
+RateLimit-Remaining: 250
+RateLimit-Reset: 3600
+```
+
+## Error Handling
+
+Common HTTP status codes:
+
+- `200 OK` - Success
+- `400 Bad Request` - Invalid request parameters
+- `401 Unauthorized` - Invalid or missing API key
+- `429 Too Many Requests` - Rate limit exceeded
+- `500 Internal Server Error` - Server error
+
+Example error response:
+
+```json
+{
+  "error": {
+    "code": "rate_limit_exceeded",
+    "message": "You have exceeded your rate limit. Try again in 3600 seconds.",
+    "details": {
+      "retry_after": 3600
+    }
+  }
+}
+```
+
+## Next Steps
+
+- 📖 [View API Reference](/api) - Complete endpoint documentation
+- 💬 [Join Discord](https://discord.gg/crawl4ai) - Get help from the community
+- 📚 [Full Documentation](https://docs.crawl4ai.com) - In-depth guides and tutorials
+- ⚙️ [Upgrade Plan](https://portal.crawl4ai.com/pricing) - Increase your rate limits

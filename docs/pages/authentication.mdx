@@ -1,0 +1,214 @@
+# Authentication
+
+The Crawl4AI API uses API keys to authenticate requests. All API requests must include your API key in the `Authorization` header.
+
+## Getting Your API Key
+
+1. Sign up at [portal.crawl4ai.com](https://portal.crawl4ai.com)
+2. Navigate to your dashboard
+3. Click "Create API Key"
+4. Copy your API key (it will only be shown once)
+
+## Using Your API Key
+
+### HTTP Header
+
+Include your API key in the `Authorization` header with the `Bearer` scheme:
+
+```bash
+curl https://api.crawl4ai.com/crawl/job \
+  -H "Authorization: Bearer zpka_your_api_key_here"
+```
+
+### SDK Examples
+
+#### Python
+
+```python
+import requests
+
+API_KEY = "zpka_your_api_key_here"
+headers = {"Authorization": f"Bearer {API_KEY}"}
+
+response = requests.post(
+    "https://api.crawl4ai.com/crawl/job",
+    headers=headers,
+    json={"urls": ["https://example.com"]}
+)
+```
+
+#### JavaScript
+
+```javascript
+const API_KEY = "zpka_your_api_key_here";
+
+const response = await fetch("https://api.crawl4ai.com/crawl/job", {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${API_KEY}`,
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    urls: ["https://example.com"]
+  })
+});
+```
+
+## Security Best Practices
+
+### Keep Your Keys Secret
+
+- **Never commit API keys to version control**
+- Use environment variables to store keys
+- Rotate keys regularly
+- Use different keys for development and production
+
+### Environment Variables
+
+```bash
+# .env file
+CRAWL4AI_API_KEY=zpka_your_api_key_here
+
+# Don't commit .env to git
+echo ".env" >> .gitignore
+```
+
+### Python Example
+
+```python
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+API_KEY = os.getenv("CRAWL4AI_API_KEY")
+```
+
+### Node.js Example
+
+```javascript
+require('dotenv').config();
+const API_KEY = process.env.CRAWL4AI_API_KEY;
+```
+
+## API Key Scopes
+
+Each API key is associated with your account and has access to:
+
+- All API endpoints
+- Your subscription tier's rate limits
+- Your account's quota and usage
+
+## Managing API Keys
+
+### Creating Keys
+
+You can create multiple API keys for different environments or applications:
+
+1. Go to [portal.crawl4ai.com/keys](https://portal.crawl4ai.com/keys)
+2. Click "Create New Key"
+3. Give it a descriptive name (e.g., "Production Server", "Development")
+4. Copy and securely store the key
+
+### Rotating Keys
+
+For security, rotate your keys regularly:
+
+1. Create a new API key
+2. Update your application with the new key
+3. Test that the new key works
+4. Revoke the old key
+
+### Revoking Keys
+
+If a key is compromised:
+
+1. Go to your API keys dashboard
+2. Find the compromised key
+3. Click "Revoke"
+4. Create a new key immediately
+
+## Error Responses
+
+### Missing Authorization Header
+
+```json
+{
+  "error": {
+    "code": "missing_authorization",
+    "message": "Authorization header is required"
+  }
+}
+```
+
+**HTTP Status:** `401 Unauthorized`
+
+### Invalid API Key
+
+```json
+{
+  "error": {
+    "code": "invalid_api_key",
+    "message": "The provided API key is invalid"
+  }
+}
+```
+
+**HTTP Status:** `401 Unauthorized`
+
+### Revoked API Key
+
+```json
+{
+  "error": {
+    "code": "api_key_revoked",
+    "message": "This API key has been revoked"
+  }
+}
+```
+
+**HTTP Status:** `401 Unauthorized`
+
+## Testing Your Authentication
+
+Test your API key with a simple request:
+
+```bash
+curl https://api.crawl4ai.com/crawl/job \
+  -H "Authorization: Bearer zpka_your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{"urls": ["https://example.com"]}' \
+  -i
+```
+
+Check the response headers for authentication success:
+
+```
+HTTP/2 200 OK
+RateLimit-Limit: 280
+RateLimit-Remaining: 279
+```
+
+## Troubleshooting
+
+### "Invalid API Key" Error
+
+1. Check for typos in your key
+2. Ensure you copied the entire key
+3. Verify the key hasn't been revoked
+4. Check that you're using the correct environment (test vs. production)
+
+### "Rate Limit Exceeded" Error
+
+This means authentication worked, but you've exceeded your tier's rate limit. Solutions:
+
+1. Wait for the rate limit to reset (check `RateLimit-Reset` header)
+2. Upgrade your plan for higher limits
+3. Implement request queuing in your application
+
+## Support
+
+Need help with authentication?
+
+- 💬 [Discord Community](https://discord.gg/crawl4ai)
+- 📧 [Email Support](mailto:support@crawl4ai.com)
+- 📚 [Full Documentation](https://docs.crawl4ai.com)
