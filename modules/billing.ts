@@ -1,10 +1,13 @@
 import { ZuploContext, ZuploRequest } from "@zuplo/runtime";
+import { QuotaInfo } from "./quota-enforcement";
 
 /**
  * Stripe Billing Tracking - Outbound Policy
  *
  * Tracks successful API requests (2xx status codes) by sending usage records to Stripe.
  * This runs AFTER the backend responds, ensuring billing only occurs for successful requests.
+ *
+ * Now includes overage detection and logging for transparency.
  *
  * Error handling: Failures are logged but don't block user requests (graceful degradation).
  *
@@ -123,14 +126,27 @@ export default async function (
     return response;
   }
 
+  // Get quota info if available (from quota-enforcement policy)
+  const quotaInfo = user.data?.quotaInfo as QuotaInfo | undefined;
+
   // Send usage record to Stripe (async, non-blocking)
   // We don't await to avoid delaying the response to the user
   sendStripeUsageRecord(subscriptionItemId, 1, stripeKey, context)
     .then((success) => {
       if (success) {
-        context.log.info(
-          `Billing tracked: user=${user.sub}, tier=${tier}, subscriptionItemId=${subscriptionItemId}`
-        );
+        // Check for overage and log accordingly
+        if (quotaInfo?.isOverage) {
+          const estimatedCost = (quotaInfo.overage / 1000) * quotaInfo.overageRate;
+          context.log.warn(
+            `Billing tracked (OVERAGE): user=${user.sub}, tier=${tier}, ` +
+            `overage=${quotaInfo.overage}, estimatedCost=$${estimatedCost.toFixed(2)}, ` +
+            `rate=$${quotaInfo.overageRate}/1k`
+          );
+        } else {
+          context.log.info(
+            `Billing tracked: user=${user.sub}, tier=${tier}, subscriptionItemId=${subscriptionItemId}`
+          );
+        }
       } else {
         context.log.warn(
           `Billing failed (non-blocking): user=${user.sub}, tier=${tier}`

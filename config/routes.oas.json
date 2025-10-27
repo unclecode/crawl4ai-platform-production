@@ -18,8 +18,8 @@
             "module": "$import(./modules/backend-proxy)"
           },
           "policies": {
-            "inbound": ["api-key-auth", "rate-limit"],
-            "outbound": ["add-rate-limit-headers", "billing-track"]
+            "inbound": ["api-key-auth", "quota-enforcement", "rate-limit"],
+            "outbound": ["add-rate-limit-headers", "quota-headers", "billing-track"]
           }
         },
         "requestBody": {
@@ -67,8 +67,8 @@
             "module": "$import(./modules/backend-proxy)"
           },
           "policies": {
-            "inbound": ["api-key-auth", "rate-limit"],
-            "outbound": ["add-rate-limit-headers", "billing-track"]
+            "inbound": ["api-key-auth", "quota-enforcement", "rate-limit"],
+            "outbound": ["add-rate-limit-headers", "quota-headers", "billing-track"]
           }
         },
         "parameters": [

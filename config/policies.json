@@ -44,6 +44,22 @@
         "export": "default",
         "module": "$import(./modules/billing)"
       }
+    },
+    {
+      "name": "quota-enforcement",
+      "policyType": "custom-code-inbound",
+      "handler": {
+        "export": "default",
+        "module": "$import(./modules/quota-enforcement)"
+      }
+    },
+    {
+      "name": "quota-headers",
+      "policyType": "custom-code-outbound",
+      "handler": {
+        "export": "default",
+        "module": "$import(./modules/quota-headers)"
+      }
     }
   ]
 }
