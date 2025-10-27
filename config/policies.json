@@ -18,11 +18,14 @@
         "export": "RateLimitInboundPolicy",
         "module": "$import(@zuplo/runtime)",
         "options": {
-          "rateLimitBy": {
+          "rateLimitBy": "function",
+          "requestsAllowed": 100,
+          "timeWindowMinutes": 60,
+          "identifier": {
             "module": "$import(./modules/rate-limiting)",
             "export": "rateLimitByTier"
           },
-          "includeHeaders": true
+          "headerMode": "retry-after"
         }
       }
     }
