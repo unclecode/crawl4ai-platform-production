@@ -21,7 +21,8 @@
           "rateLimitBy": {
             "module": "$import(./modules/rate-limiting)",
             "export": "rateLimitByTier"
-          }
+          },
+          "includeHeaders": true
         }
       }
     }
