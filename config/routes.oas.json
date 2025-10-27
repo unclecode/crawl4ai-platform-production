@@ -19,7 +19,7 @@
           },
           "policies": {
             "inbound": ["api-key-auth", "rate-limit"],
-            "outbound": ["add-rate-limit-headers"]
+            "outbound": ["add-rate-limit-headers", "billing-track"]
           }
         },
         "requestBody": {
@@ -68,7 +68,7 @@
           },
           "policies": {
             "inbound": ["api-key-auth", "rate-limit"],
-            "outbound": ["add-rate-limit-headers"]
+            "outbound": ["add-rate-limit-headers", "billing-track"]
           }
         },
         "parameters": [

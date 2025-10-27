@@ -36,6 +36,14 @@
         "export": "default",
         "module": "$import(./modules/rate-limit-headers)"
       }
+    },
+    {
+      "name": "billing-track",
+      "policyType": "custom-code-outbound",
+      "handler": {
+        "export": "default",
+        "module": "$import(./modules/billing)"
+      }
     }
   ]
 }
