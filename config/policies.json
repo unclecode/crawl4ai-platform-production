@@ -7,8 +7,7 @@
         "export": "ApiKeyInboundPolicy",
         "module": "$import(@zuplo/runtime)",
         "options": {
-          "allowUnauthenticatedRequests": false,
-          "source": "zprj-zaxupcauvifkt8njofd9hrd5-production"
+          "allowUnauthenticatedRequests": false
         }
       }
     },
