@@ -18,8 +18,7 @@
         "export": "RateLimitInboundPolicy",
         "module": "$import(@zuplo/runtime)",
         "options": {
-          "rateLimitBy": "function",
-          "identifier": {
+          "rateLimitBy": {
             "module": "$import(./modules/rate-limiting)",
             "export": "rateLimitByTier"
           }
