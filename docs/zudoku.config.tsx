@@ -27,7 +27,7 @@ const config: ZudokuConfig = {
   metadata: {
     title: "Crawl4AI API Documentation",
     description: "AI-Powered Web Crawling & Scraping API - Extract clean data from any website with LLM integration. Fast, reliable, and developer-friendly.",
-    keywords: "web scraping, api, crawling, ai extraction, llm, developer tools, automation, data extraction",
+    keywords: ["web scraping", "api", "crawling", "ai extraction", "llm", "developer tools", "automation", "data extraction"],
     generator: "Zudoku",
   },
   theme: {
@@ -88,8 +88,6 @@ const config: ZudokuConfig = {
         fontFamily: "'Dank Mono', 'dm', Monaco, Menlo, Consolas, monospace",
       },
     },
-    // Custom CSS for additional styling
-    customCss: "/custom.css",
   },
   navigation: [
     {
