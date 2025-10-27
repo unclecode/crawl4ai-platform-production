@@ -65,20 +65,28 @@ export default async function (
     context.log.warn(`Could not access rate limit cache: ${error}`);
   }
 
+  // Create new headers object by cloning existing headers
+  const newHeaders = new Headers(response.headers);
+
   // Add standard RateLimit headers (draft IETF spec)
-  response.headers.set("RateLimit-Limit", requestsAllowed.toString());
-  response.headers.set("RateLimit-Remaining", remaining.toString());
-  response.headers.set("RateLimit-Reset", resetTime.toString());
+  newHeaders.set("RateLimit-Limit", requestsAllowed.toString());
+  newHeaders.set("RateLimit-Remaining", remaining.toString());
+  newHeaders.set("RateLimit-Reset", resetTime.toString());
 
   // Add legacy X-RateLimit headers for compatibility
-  response.headers.set("X-RateLimit-Limit", requestsAllowed.toString());
-  response.headers.set("X-RateLimit-Remaining", remaining.toString());
-  response.headers.set("X-RateLimit-Reset", resetTime.toString());
+  newHeaders.set("X-RateLimit-Limit", requestsAllowed.toString());
+  newHeaders.set("X-RateLimit-Remaining", remaining.toString());
+  newHeaders.set("X-RateLimit-Reset", resetTime.toString());
 
   // Log for debugging
   context.log.info(
     `Rate limit headers: tier=${tier}, limit=${requestsAllowed}, remaining=${remaining}, reset=${resetTime}s`
   );
 
-  return response;
+  // Create new response with updated headers
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: newHeaders,
+  });
 }
