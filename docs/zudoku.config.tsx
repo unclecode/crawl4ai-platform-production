@@ -1,5 +1,5 @@
 import type { ZudokuConfig } from "zudoku";
-import { apiKeyPlugin } from "zudoku/plugins";
+import { apiKeyPlugin } from "zudoku/plugins/api-keys";
 
 /**
  * Crawl4AI Developer Portal Configuration
