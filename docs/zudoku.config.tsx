@@ -173,6 +173,9 @@ const config: ZudokuConfig = {
     domain: "auth.zuplo.site",
     clientId: "f8I87rdsCRo4nU2FHf0fHVwA9P7xi7Ml",
     audience: "https://api.crawl4ai.com/",
+    redirectToAfterSignUp: "/",
+    redirectToAfterSignIn: "/",
+    redirectToAfterSignOut: "/",
   },
   apiKeys: {
     enabled: true,
