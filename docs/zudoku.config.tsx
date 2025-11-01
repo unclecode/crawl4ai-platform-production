@@ -1,4 +1,5 @@
 import type { ZudokuConfig } from "zudoku";
+import { apiKeyPlugin } from "zudoku/plugins";
 
 /**
  * Crawl4AI Developer Portal Configuration
@@ -177,9 +178,42 @@ const config: ZudokuConfig = {
     redirectToAfterSignIn: "/",
     redirectToAfterSignOut: "/",
   },
-  apiKeys: {
-    enabled: true,
-  },
+  plugins: [
+    apiKeyPlugin({
+      deploymentName: "crawl4ai-platform-production-main-b3f10e1",
+      createKey: async ({ apiKey, context, auth }) => {
+        // Custom API key creation - bypasses email_verified check
+        // Social logins (GitHub, Google, etc.) are trusted and don't need email verification
+        const request = new Request(
+          `https://api.zuploedge.com/v2/client/crawl4ai-platform-production-main-b3f10e1/consumers?with-api-key=true`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: `user-${auth.profile?.sub}-${Date.now()}`,
+              description: apiKey.description || "API Key",
+              metadata: {
+                userId: auth.profile?.sub,
+                email: auth.profile?.email,
+                name: auth.profile?.name,
+                tier: "free", // Default tier for new users
+                createdAt: new Date().toISOString(),
+                source: "developer-portal",
+              },
+            }),
+          }
+        );
+
+        const signedRequest = await context.signRequest(request);
+        const response = await fetch(signedRequest);
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Failed to create API key: ${errorText}`);
+        }
+      },
+    }),
+  ],
 };
 
 export default config;
