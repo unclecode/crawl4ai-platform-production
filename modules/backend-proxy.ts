@@ -12,7 +12,7 @@ export default async function (request: ZuploRequest, context: ZuploContext) {
     method: request.method,
     headers: {
       "Content-Type": "application/json",
-      "X-API-Key": "test-key-12345" // Backend expects this
+      "X-Gateway-Secret": context.env.GATEWAY_SECRET
     },
     body: request.method !== "GET" && request.method !== "HEAD"
       ? await request.text()
