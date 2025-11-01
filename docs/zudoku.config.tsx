@@ -172,7 +172,7 @@ const config: ZudokuConfig = {
     type: "auth0",
     domain: "crawl4ai.us.auth0.com",
     clientId: "AIOJI08vkkSD1SxavPIgXqwxUXYU9NmP",
-    audience: "https://api.crawl4ai.com/",
+    audience: "https://crawl4ai.us.auth0.com/api/v2/",
     redirectToAfterSignUp: "/",
     redirectToAfterSignIn: "/",
     redirectToAfterSignOut: "/",
