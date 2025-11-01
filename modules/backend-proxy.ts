@@ -1,10 +1,10 @@
-import { ZuploContext, ZuploRequest } from "@zuplo/runtime";
+import { ZuploContext, ZuploRequest, environment } from "@zuplo/runtime";
 
 export default async function (request: ZuploRequest, context: ZuploContext) {
   const backendUrl = "http://api2.crawl4ai.com";
 
   // Get gateway secret from environment
-  const gatewaySecret = context.env.GATEWAY_SECRET;
+  const gatewaySecret = environment.GATEWAY_SECRET;
 
   // Log error if secret is missing
   if (!gatewaySecret) {
