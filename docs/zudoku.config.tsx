@@ -172,7 +172,7 @@ const config: ZudokuConfig = {
     type: "auth0",
     domain: "auth.zuplo.site",
     clientId: "f8I87rdsCRo4nU2FHf0fHVwA9P7xi7Ml",
-    audience: "https://api.example.com/",
+    audience: "https://api.crawl4ai.com/",
   },
   apiKeys: {
     enabled: true,
