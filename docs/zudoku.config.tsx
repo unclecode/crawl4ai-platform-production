@@ -170,8 +170,8 @@ const config: ZudokuConfig = {
     // For more information, see:
     // https://zuplo.com/docs/dev-portal/zudoku/configuration/authentication
     type: "auth0",
-    domain: "auth.zuplo.site",
-    clientId: "f8I87rdsCRo4nU2FHf0fHVwA9P7xi7Ml",
+    domain: "crawl4ai.us.auth0.com",
+    clientId: "AIOJI08vkkSD1SxavPIgXqwxUXYU9NmP",
     audience: "https://api.crawl4ai.com/",
     redirectToAfterSignUp: "/",
     redirectToAfterSignIn: "/",
