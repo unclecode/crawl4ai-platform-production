@@ -181,8 +181,30 @@ const config: ZudokuConfig = {
   plugins: [
     apiKeyPlugin({
       deploymentName: "crawl4ai-platform-production-main-b3f10e1",
+      // Custom getConsumers - bypasses email_verified check
+      getConsumers: async (context) => {
+        const request = new Request(
+          `https://api.zuploedge.com/v2/client/crawl4ai-platform-production-main-b3f10e1/consumers`
+        );
+        const signedRequest = await context.signRequest(request);
+        const response = await fetch(signedRequest);
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch consumers: ${await response.text()}`);
+        }
+
+        const data = await response.json();
+        return data.data.map((consumer: any) => ({
+          id: consumer.id,
+          label: consumer.name || consumer.id,
+          apiKeys: consumer.apiKeys?.data || [],
+          description: consumer.description,
+          createdOn: consumer.createdOn,
+          key: consumer.apiKeys?.data?.[0],
+        }));
+      },
+      // Custom createKey - bypasses email_verified check
       createKey: async ({ apiKey, context, auth }) => {
-        // Custom API key creation - bypasses email_verified check
         // Social logins (GitHub, Google, etc.) are trusted and don't need email verification
         const request = new Request(
           `https://api.zuploedge.com/v2/client/crawl4ai-platform-production-main-b3f10e1/consumers?with-api-key=true`,
