@@ -166,14 +166,9 @@ const config: ZudokuConfig = {
     },
   ],
   authentication: {
-    // Using Zuplo's built-in API key management
-    // Users sign up through the portal and get API keys automatically
-    // For more information, see:
-    // https://zuplo.com/docs/dev-portal/zudoku/configuration/authentication
     type: "auth0",
     domain: "crawl4ai.us.auth0.com",
     clientId: "AIOJI08vkkSD1SxavPIgXqwxUXYU9NmP",
-    audience: "https://crawl4ai.us.auth0.com/api/v2/",
     redirectToAfterSignUp: "/",
     redirectToAfterSignIn: "/",
     redirectToAfterSignOut: "/",
