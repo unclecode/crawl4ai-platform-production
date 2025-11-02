@@ -1,4 +1,5 @@
 import type { ZudokuConfig } from "zudoku";
+import { apiKeyPlugin } from "zudoku/plugins/api-keys";
 
 /**
  * Crawl4AI Developer Portal Configuration
@@ -177,9 +178,11 @@ const config: ZudokuConfig = {
     redirectToAfterSignIn: "/",
     redirectToAfterSignOut: "/",
   },
-  apiKeys: {
-    enabled: true,
-  },
+  plugins: [
+    apiKeyPlugin({
+      deploymentName: "crawl4ai-platform-production-main-b3f10e1",
+    }),
+  ],
 };
 
 export default config;
