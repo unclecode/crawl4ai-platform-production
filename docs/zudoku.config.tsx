@@ -1,5 +1,4 @@
 import type { ZudokuConfig } from "zudoku";
-import { apiKeyPlugin } from "zudoku/plugins/api-keys";
 
 /**
  * Crawl4AI Developer Portal Configuration
@@ -178,64 +177,9 @@ const config: ZudokuConfig = {
     redirectToAfterSignIn: "/",
     redirectToAfterSignOut: "/",
   },
-  plugins: [
-    apiKeyPlugin({
-      deploymentName: "crawl4ai-platform-production-main-b3f10e1",
-      // Custom getConsumers - bypasses email_verified check
-      getConsumers: async (context) => {
-        const request = new Request(
-          `https://api.zuploedge.com/v2/client/crawl4ai-platform-production-main-b3f10e1/consumers`
-        );
-        const signedRequest = await context.signRequest(request);
-        const response = await fetch(signedRequest);
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch consumers: ${await response.text()}`);
-        }
-
-        const data = await response.json();
-        return data.data.map((consumer: any) => ({
-          id: consumer.id,
-          label: consumer.name || consumer.id,
-          apiKeys: consumer.apiKeys?.data || [],
-          description: consumer.description,
-          createdOn: consumer.createdOn,
-          key: consumer.apiKeys?.data?.[0],
-        }));
-      },
-      // Custom createKey - bypasses email_verified check
-      createKey: async ({ apiKey, context, auth }) => {
-        // Social logins (GitHub, Google, etc.) are trusted and don't need email verification
-        const request = new Request(
-          `https://api.zuploedge.com/v2/client/crawl4ai-platform-production-main-b3f10e1/consumers?with-api-key=true`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: `user-${auth.profile?.sub}-${Date.now()}`,
-              description: apiKey.description || "API Key",
-              metadata: {
-                userId: auth.profile?.sub,
-                email: auth.profile?.email,
-                name: auth.profile?.name,
-                tier: "free", // Default tier for new users
-                createdAt: new Date().toISOString(),
-                source: "developer-portal",
-              },
-            }),
-          }
-        );
-
-        const signedRequest = await context.signRequest(request);
-        const response = await fetch(signedRequest);
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Failed to create API key: ${errorText}`);
-        }
-      },
-    }),
-  ],
+  apiKeys: {
+    enabled: true,
+  },
 };
 
 export default config;
